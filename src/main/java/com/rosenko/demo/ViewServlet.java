@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.rosenko.demo;
 
 
+import com.rosenko.demo.entity.Employee;
+import com.rosenko.demo.repository.EmployeeRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,16 +16,18 @@ import java.util.List;
 @WebServlet("/viewServlet")
 public class ViewServlet extends HttpServlet {
 
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        try (PrintWriter out = response.getWriter()) {
 
-        List<Employee> list = EmployeeRepository.getAllEmployees();
+            List<Employee> list = employeeRepository.getAllEmployees();
 
-        for (Employee employee : list) {
-            out.print(employee);
+            for (Employee employee : list) {
+                out.print(employee);
+            }
         }
-        out.close();
     }
 }

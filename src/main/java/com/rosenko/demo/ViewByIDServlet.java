@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.rosenko.demo;
 
 
+import com.rosenko.demo.entity.Employee;
+import com.rosenko.demo.repository.EmployeeRepository;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +15,9 @@ import java.util.Optional;
 
 @WebServlet("/viewByIDServlet")
 public class ViewByIDServlet extends HttpServlet {
+
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         response.setContentType("text/html");
@@ -21,11 +26,14 @@ public class ViewByIDServlet extends HttpServlet {
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
 
-        //List<Employee> employee = EmployeeRepository.getEmployeeById(id);
-        //Optional<Employee> employee = EmployeeRepository.getEmployeeById(id);
-        Optional<Object> employee = EmployeeRepository.getEmployeeById(id);
+        Optional<Employee> employee = employeeRepository.getEmployeeById(id);
 
-        out.print(employee);
+        if (employee.isPresent()) {
+            out.print(employee.get());
+        } else {
+            out.print("Employee not found");
+        }
+
         out.close();
     }
 }

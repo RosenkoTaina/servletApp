@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.rosenko.demo;
 
 
+import com.rosenko.demo.entity.Employee;
+import com.rosenko.demo.repository.EmployeeRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,28 +12,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/putServlet")
-public class PutServlet extends HttpServlet {
+@WebServlet("/saveServlet")
+public class SaveServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
 
-        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
-        String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String country = request.getParameter("country");
 
-        Employee employee = new Employee(id, name, email, request.getParameter("country"));
+        Employee employee = new Employee(name, email, country);
 
-        int status = EmployeeRepository.update(employee);
+        EmployeeRepository repository = new EmployeeRepository();
+
+        int status = repository.save(employee);
+
         if (status > 0) {
-            response.sendRedirect("viewByIDServlet?id=68");
+            out.print("Record saved successfully!");
         } else {
-            out.println("Sorry! unable to update record");
+            out.println("Sorry! unable to save record");
         }
         out.close();
     }

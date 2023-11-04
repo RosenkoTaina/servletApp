@@ -1,6 +1,7 @@
-package com.example.demo;
+package com.rosenko.demo;
 
 
+import com.rosenko.demo.repository.EmployeeRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,11 +13,13 @@ import java.io.IOException;
 @WebServlet("/deleteServlet")
 public class DeleteServlet extends HttpServlet {
 
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
-        EmployeeRepository.delete(id);
+        employeeRepository.delete(id);
         response.sendRedirect("viewServlet");
     }
 }
