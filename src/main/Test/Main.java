@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         EmployeeRepository employeeRepository = new EmployeeRepository();
 
-        Employee employee = new Employee("John Doe", "john.doe@example.com", "USA");
+        Employee employee = new Employee("John Doe", "john.doe@example.com", "Germany");
         int status = employeeRepository.save(employee);
 
         if (status > 0) {

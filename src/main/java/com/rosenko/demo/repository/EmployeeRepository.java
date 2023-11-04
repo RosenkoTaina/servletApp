@@ -4,6 +4,7 @@ import com.rosenko.demo.entity.Employee;
 import com.rosenko.demo.enums.DataSourceFactory;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,11 @@ public class EmployeeRepository implements Repository {
     private final DataSource dataSource;
 
     public EmployeeRepository() {
-        this.dataSource = DataSourceFactory.getInstance();
+        try {
+            this.dataSource = DataSourceFactory.getInstance();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 @Override
     public int save(Employee employee) {
