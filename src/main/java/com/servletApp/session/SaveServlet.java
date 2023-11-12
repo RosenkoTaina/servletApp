@@ -1,20 +1,22 @@
-package com.rosenko.demo;
+package com.servletApp.session;
 
 
-import com.rosenko.demo.entity.Employee;
-import com.rosenko.demo.repository.EmployeeRepository;
+import com.servletApp.entity.Employee;
+import com.servletApp.repository.EmployeeDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/saveServlet")
+@WebServlet("/servletApp/saveServlet")
 public class SaveServlet extends HttpServlet {
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
@@ -25,12 +27,14 @@ public class SaveServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
+        String password = request.getParameter("hashed_password");
+        String role = request.getParameter("role");
 
-        Employee employee = new Employee(name, email, country);
+        Employee employee = new Employee(name, email, country, password, role);
 
-        EmployeeRepository repository = new EmployeeRepository();
+        EmployeeDao employeeDao = new EmployeeDao();
 
-        int status = repository.save(employee);
+        int status = employeeDao.saveUser(employee);
 
         if (status > 0) {
             out.print("Record saved successfully!");

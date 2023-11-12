@@ -1,8 +1,8 @@
-package com.rosenko.demo;
+package com.servletApp.session;
 
 
-import com.rosenko.demo.entity.Employee;
-import com.rosenko.demo.repository.EmployeeRepository;
+import com.servletApp.entity.Employee;
+import com.servletApp.repository.EmployeeDao;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,10 +13,10 @@ import java.io.PrintWriter;
 import java.util.Optional;
 
 
-@WebServlet("/viewByIDServlet")
+@WebServlet("/servletApp/viewByIDServlet")
 public class ViewByIDServlet extends HttpServlet {
 
-    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final EmployeeDao employeeDao = new EmployeeDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -26,7 +26,7 @@ public class ViewByIDServlet extends HttpServlet {
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
 
-        Optional<Employee> employee = employeeRepository.getEmployeeById(id);
+        Optional<Employee> employee  = employeeDao.getEmployeeById (id);
 
         if (employee.isPresent()) {
             out.print(employee.get());

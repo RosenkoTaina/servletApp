@@ -1,13 +1,14 @@
-import com.rosenko.demo.entity.Employee;
-import com.rosenko.demo.repository.EmployeeRepository;
+import com.servletApp.entity.Employee;
+import com.servletApp.repository.EmployeeDao;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        EmployeeRepository employeeRepository = new EmployeeRepository();
+        EmployeeDao employeeDao = new EmployeeDao();
 
-        Employee employee = new Employee("John Doe", "john.doe@example.com", "Germany");
-        int status = employeeRepository.save(employee);
+        Employee employee = new Employee("John Doe", "john.doe@example.com", "Germany", "password", "user");
+        int status = employeeDao.saveUser(employee);
 
         if (status > 0) {
             System.out.println("Employee saved successfully.");

@@ -1,8 +1,8 @@
-package com.rosenko.demo;
+package com.servletApp.session;
 
 
-import com.rosenko.demo.entity.Employee;
-import com.rosenko.demo.repository.EmployeeRepository;
+import com.servletApp.entity.Employee;
+import com.servletApp.repository.EmployeeDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,21 +13,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/viewServlet")
+@WebServlet("/servletApp/viewServlet")
 public class ViewServlet extends HttpServlet {
 
-    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final EmployeeDao employeeDao = new EmployeeDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setContentType("text/html");
+
         try (PrintWriter out = response.getWriter()) {
+            List<Employee> list = employeeDao.getAllEmployees();
 
-            List<Employee> list = employeeRepository.getAllEmployees();
-
-            for (Employee employee : list) {
-                out.print(employee);
-            }
+            list.stream()
+                    .map(Employee::toString)
+                    .forEach(out::print);
         }
     }
+
 }
