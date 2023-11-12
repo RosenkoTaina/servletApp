@@ -14,7 +14,6 @@ public class AppControllerServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

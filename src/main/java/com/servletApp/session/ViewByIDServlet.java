@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.util.Optional;
 
 
-@WebServlet("/servletApp/viewByIDServlet")
+@WebServlet("/viewByIDServlet")
 public class ViewByIDServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();

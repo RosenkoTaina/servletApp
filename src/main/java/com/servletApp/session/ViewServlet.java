@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/servletApp/viewServlet")
+@WebServlet("/viewServlet")
 public class ViewServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();
@@ -28,6 +28,9 @@ public class ViewServlet extends HttpServlet {
                     .map(Employee::toString)
                     .forEach(out::print);
         }
+
+
+
     }
 
 }

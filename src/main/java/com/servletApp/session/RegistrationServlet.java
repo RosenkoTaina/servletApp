@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/servletApp/registrationServlet")
+@WebServlet("/registrationServlet")
 public class RegistrationServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();

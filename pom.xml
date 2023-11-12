@@ -61,11 +61,11 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mindrot</groupId>-->
+<!--            <artifactId>jbcrypt</artifactId>-->
+<!--            <version>0.4</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -80,6 +80,13 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.jfinal</groupId>-->
+<!--            <artifactId>jetty-server</artifactId>-->
+<!--            <version>2019.3</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
     </dependencies>
 

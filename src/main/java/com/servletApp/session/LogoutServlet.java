@@ -1,6 +1,4 @@
 package com.servletApp.session;
-
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,7 +9,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/servletApp/logoutServlet")
+@WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

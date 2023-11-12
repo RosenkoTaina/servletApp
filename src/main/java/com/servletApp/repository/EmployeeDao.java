@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.servletApp.service.ConnectionProvider;
-import org.mindrot.jbcrypt.BCrypt;
+
 
 public class EmployeeDao {
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, email, country, hashed_password, role) VALUES (?, ?, ?, ?, ?)";
@@ -33,13 +33,13 @@ public class EmployeeDao {
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     String hashedPasswordFromDB = resultSet.getString("hashed_password");
-                    if (BCrypt.checkpw(password, hashedPasswordFromDB)) {
+                    if (password == hashedPasswordFromDB) {
                         int id = resultSet.getInt("id");
                         String name = resultSet.getString("name");
                         String country = resultSet.getString("country");
                         String role = resultSet.getString("role");
 
-                        Employee employee = new Employee(id, name, email, country, hashedPasswordFromDB, role);
+                        Employee employee = new Employee(id, name, email, country, password, role);
                         return Optional.of(employee);
                     }
                 }

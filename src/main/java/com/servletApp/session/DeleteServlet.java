@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 
-@WebServlet("/servletApp/deleteServlet")
+@WebServlet("/deleteServlet")
 public class DeleteServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();
@@ -22,6 +22,7 @@ public class DeleteServlet extends HttpServlet {
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
         employeeDao.deleteUser(id);
+
         response.sendRedirect("viewServlet");
     }
 }

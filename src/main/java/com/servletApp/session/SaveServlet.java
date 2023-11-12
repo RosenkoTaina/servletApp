@@ -13,7 +13,7 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/servletApp/saveServlet")
+@WebServlet("/saveServlet")
 public class SaveServlet extends HttpServlet {
 
     @SneakyThrows

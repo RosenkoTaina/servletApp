@@ -13,14 +13,6 @@ public class AuthenticationHelper {
         response.sendRedirect(request.getContextPath() + "/login.jsp?error=true");
     }
 
-    public static void handleSuccessfulLogin(HttpServletRequest request, HttpServletResponse response, String email)
-            throws IOException {
-        createSession(request, email);
-        createCookie(response, email);
-        printWelcomeBackMessage(response, email);
-        response.sendRedirect(request.getContextPath() + "/welcome.jsp"); // Redirect to welcome page
-    }
-
     private static void createSession(HttpServletRequest request, String email) {
         HttpSession session = request.getSession();
         session.setAttribute("email", email);
@@ -37,6 +29,14 @@ public class AuthenticationHelper {
         try (PrintWriter out = response.getWriter()) {
             out.println("Welcome back to the team, " + email + "!");
         }
+    }
+
+    public static void handleSuccessfulLogin(HttpServletRequest request, HttpServletResponse response, String email)
+            throws IOException {
+        createSession(request, email);
+        createCookie(response, email);
+        printWelcomeBackMessage(response, email);
+        response.sendRedirect(request.getContextPath() + "/welcome.jsp"); // Redirect to welcome page
     }
 }
 

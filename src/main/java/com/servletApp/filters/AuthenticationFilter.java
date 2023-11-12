@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 
-@WebFilter("/authenticationFilter")
+
+@WebFilter("servletApp/*")
 public class AuthenticationFilter implements Filter {
 
     private ServletContext context;
@@ -38,36 +39,35 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         if (session == null && !(
-                uri.startsWith(req.getContextPath() + "/servletApp/saveServlet") ||
-                        uri.startsWith(req.getContextPath() + "/servletApp/viewByIDServlet") ||
-                        uri.startsWith(req.getContextPath() + "/servletApp/loginServlet") ||
-                        uri.startsWith(req.getContextPath() + "/servletApp/logoutServlet") ||
-                        uri.startsWith(req.getContextPath() + "/servletApp/deleteServlet") ||
-                        uri.startsWith(req.getContextPath() + "/servletApp/viewServlet"))) {
+                uri.startsWith(req.getContextPath() + "/saveServlet") ||
+                uri.startsWith(req.getContextPath() + "/viewByIDServlet") ||
+                uri.startsWith(req.getContextPath() + "/loginServlet") ||
+                uri.startsWith(req.getContextPath() + "/logoutServlet") ||
+                uri.startsWith(req.getContextPath() + "/deleteServlet") ||
+                uri.startsWith(req.getContextPath() + "/viewServlet"))) {
 
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-
-            // Authenticate the user
-            Optional<Employee> optionalEmployee = employeeDao.authenticate(email, password);
-
-            if (optionalEmployee.isPresent()) {
-
-                session = req.getSession();
-                session.setAttribute("email", email);
-                session.setMaxInactiveInterval(30 * 60);
-
-                res.sendRedirect(req.getContextPath() + "/welcome.jsp");
-            } else {
-                AuthenticationHelper.handleUnsuccessfulLogin(req, res);
-                res.sendRedirect(req.getContextPath() + "/registration.jsp");
-            }
+            // Redirect to welcome page if not logged in
+            res.sendRedirect(req.getContextPath() + "/index.jsp");
+            return;
         }
+
+        // If the user is not logged in, display welcome page with login/register options
+        if (session == null) {
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
+
+        // User is logged in, continue with the request
+        chain.doFilter(request, response);
     }
+
 
 
     public void destroy() {
         // Close any resources here
     }
+
+
+
 }
 

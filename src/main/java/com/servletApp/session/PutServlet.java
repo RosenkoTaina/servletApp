@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-@WebServlet("/servletApp/putServlet")
+@WebServlet("/putServlet")
 public class PutServlet extends HttpServlet {
     private final EmployeeDao employeeDao = new EmployeeDao();
 
